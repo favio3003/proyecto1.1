@@ -1,0 +1,881 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="proyectoTrelloModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="proyecto">
+          <Key>
+            <PropertyRef Name="idProyecto" />
+          </Key>
+          <Property Name="idProyecto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sigla" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Imagen" Type="varchar" MaxLength="1000" />
+          <Property Name="Estado" Type="smallint" />
+          <Property Name="idResponsable" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProyectoUsuario">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+            <PropertyRef Name="idRol" />
+            <PropertyRef Name="idProyecto" />
+          </Key>
+          <Property Name="idUsuario" Type="int" Nullable="false" />
+          <Property Name="idRol" Type="int" Nullable="false" />
+          <Property Name="idProyecto" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="requisitos">
+          <Key>
+            <PropertyRef Name="idRequisitos" />
+          </Key>
+          <Property Name="idRequisitos" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="Tipo" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="Prioridad" Type="smallint" Nullable="false" />
+          <Property Name="Puntos" Type="smallint" Nullable="false" />
+          <Property Name="Estado" Type="smallint" Nullable="false" />
+          <Property Name="idInformador" Type="int" Nullable="false" />
+          <Property Name="idResponsable" Type="int" />
+          <Property Name="idProyecto" Type="int" Nullable="false" />
+          <Property Name="idRequisitosPadre" Type="int" />
+          <Property Name="TiempoEstimado" Type="datetime" />
+          <Property Name="fechacreado" Type="datetime" />
+        </EntityType>
+        <EntityType Name="RequisitosEstado">
+          <Key>
+            <PropertyRef Name="idRequisitos" />
+          </Key>
+          <Property Name="idRequisitos" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Estado" Type="smallint" />
+          <Property Name="FechaCambio" Type="datetime" />
+          <Property Name="idUsuario" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="rol">
+          <Key>
+            <PropertyRef Name="idRol" />
+          </Key>
+          <Property Name="idRol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sprint">
+          <Key>
+            <PropertyRef Name="idSprint" />
+          </Key>
+          <Property Name="idSprint" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FechaIncio" Type="datetime" />
+          <Property Name="FechaFin" Type="datetime" />
+          <Property Name="Estados" Type="smallint" />
+          <Property Name="idProyecto" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SprintRequisitos">
+          <Key>
+            <PropertyRef Name="idSprint" />
+            <PropertyRef Name="idRequisitos" />
+          </Key>
+          <Property Name="idSprint" Type="int" Nullable="false" />
+          <Property Name="idRequisitos" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="trabajo">
+          <Key>
+            <PropertyRef Name="idTrabajo" />
+          </Key>
+          <Property Name="idTrabajo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FechaRegistro" Type="datetime" Nullable="false" />
+          <Property Name="Tiempotrabajada" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Comentario" Type="varchar" MaxLength="1000" />
+          <Property Name="Fechaguardado" Type="datetime" Nullable="false" />
+          <Property Name="idRequisitos" Type="int" Nullable="false" />
+          <Property Name="idUsuario" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreCompleto" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Correo" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="Clave" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telefono" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Direccion" Type="varchar" MaxLength="500" />
+          <Property Name="Estado" Type="smallint" />
+          <Property Name="idRol" Type="int" />
+        </EntityType>
+        <Association Name="FK__proyecto__idResp__286302EC">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="proyecto" Type="Self.proyecto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="proyecto">
+              <PropertyRef Name="idResponsable" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProyectoU__idPro__300424B4">
+          <End Role="proyecto" Type="Self.proyecto" Multiplicity="1" />
+          <End Role="ProyectoUsuario" Type="Self.ProyectoUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="proyecto">
+              <PropertyRef Name="idProyecto" />
+            </Principal>
+            <Dependent Role="ProyectoUsuario">
+              <PropertyRef Name="idProyecto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProyectoU__idRol__2F10007B">
+          <End Role="rol" Type="Self.rol" Multiplicity="1" />
+          <End Role="ProyectoUsuario" Type="Self.ProyectoUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rol">
+              <PropertyRef Name="idRol" />
+            </Principal>
+            <Dependent Role="ProyectoUsuario">
+              <PropertyRef Name="idRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProyectoU__idUsu__2E1BDC42">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="ProyectoUsuario" Type="Self.ProyectoUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="ProyectoUsuario">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__requisito__idInf__32E0915F">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="requisitos" Type="Self.requisitos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="requisitos">
+              <PropertyRef Name="idInformador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__requisito__idPro__34C8D9D1">
+          <End Role="proyecto" Type="Self.proyecto" Multiplicity="1" />
+          <End Role="requisitos" Type="Self.requisitos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="proyecto">
+              <PropertyRef Name="idProyecto" />
+            </Principal>
+            <Dependent Role="requisitos">
+              <PropertyRef Name="idProyecto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__requisito__idReq__35BCFE0A">
+          <End Role="requisitos" Type="Self.requisitos" Multiplicity="0..1" />
+          <End Role="requisitos1" Type="Self.requisitos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="requisitos">
+              <PropertyRef Name="idRequisitos" />
+            </Principal>
+            <Dependent Role="requisitos1">
+              <PropertyRef Name="idRequisitosPadre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__requisito__idRes__33D4B598">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="0..1" />
+          <End Role="requisitos" Type="Self.requisitos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="requisitos">
+              <PropertyRef Name="idResponsable" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Requisito__idUsu__403A8C7D">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="RequisitosEstado" Type="Self.RequisitosEstado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="RequisitosEstado">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__sprint__idProyec__2B3F6F97">
+          <End Role="proyecto" Type="Self.proyecto" Multiplicity="1" />
+          <End Role="sprint" Type="Self.sprint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="proyecto">
+              <PropertyRef Name="idProyecto" />
+            </Principal>
+            <Dependent Role="sprint">
+              <PropertyRef Name="idProyecto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SprintReq__idReq__3D5E1FD2">
+          <End Role="requisitos" Type="Self.requisitos" Multiplicity="1" />
+          <End Role="SprintRequisitos" Type="Self.SprintRequisitos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="requisitos">
+              <PropertyRef Name="idRequisitos" />
+            </Principal>
+            <Dependent Role="SprintRequisitos">
+              <PropertyRef Name="idRequisitos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SprintReq__idSpr__3C69FB99">
+          <End Role="sprint" Type="Self.sprint" Multiplicity="1" />
+          <End Role="SprintRequisitos" Type="Self.SprintRequisitos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sprint">
+              <PropertyRef Name="idSprint" />
+            </Principal>
+            <Dependent Role="SprintRequisitos">
+              <PropertyRef Name="idSprint" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__trabajo__idRequi__38996AB5">
+          <End Role="requisitos" Type="Self.requisitos" Multiplicity="1" />
+          <End Role="trabajo" Type="Self.trabajo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="requisitos">
+              <PropertyRef Name="idRequisitos" />
+            </Principal>
+            <Dependent Role="trabajo">
+              <PropertyRef Name="idRequisitos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__trabajo__idUsuar__398D8EEE">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="trabajo" Type="Self.trabajo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="trabajo">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__usuario__idRol__25869641">
+          <End Role="rol" Type="Self.rol" Multiplicity="0..1" />
+          <End Role="usuario" Type="Self.usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rol">
+              <PropertyRef Name="idRol" />
+            </Principal>
+            <Dependent Role="usuario">
+              <PropertyRef Name="idRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="proyectoTrelloModelStoreContainer">
+          <EntitySet Name="proyecto" EntityType="Self.proyecto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProyectoUsuario" EntityType="Self.ProyectoUsuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="requisitos" EntityType="Self.requisitos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RequisitosEstado" EntityType="Self.RequisitosEstado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="rol" EntityType="Self.rol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sprint" EntityType="Self.sprint" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SprintRequisitos" EntityType="Self.SprintRequisitos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="trabajo" EntityType="Self.trabajo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="usuario" EntityType="Self.usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__proyecto__idResp__286302EC" Association="Self.FK__proyecto__idResp__286302EC">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="proyecto" EntitySet="proyecto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProyectoU__idPro__300424B4" Association="Self.FK__ProyectoU__idPro__300424B4">
+            <End Role="proyecto" EntitySet="proyecto" />
+            <End Role="ProyectoUsuario" EntitySet="ProyectoUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProyectoU__idRol__2F10007B" Association="Self.FK__ProyectoU__idRol__2F10007B">
+            <End Role="rol" EntitySet="rol" />
+            <End Role="ProyectoUsuario" EntitySet="ProyectoUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProyectoU__idUsu__2E1BDC42" Association="Self.FK__ProyectoU__idUsu__2E1BDC42">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="ProyectoUsuario" EntitySet="ProyectoUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__requisito__idInf__32E0915F" Association="Self.FK__requisito__idInf__32E0915F">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="requisitos" EntitySet="requisitos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__requisito__idPro__34C8D9D1" Association="Self.FK__requisito__idPro__34C8D9D1">
+            <End Role="proyecto" EntitySet="proyecto" />
+            <End Role="requisitos" EntitySet="requisitos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__requisito__idReq__35BCFE0A" Association="Self.FK__requisito__idReq__35BCFE0A">
+            <End Role="requisitos" EntitySet="requisitos" />
+            <End Role="requisitos1" EntitySet="requisitos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__requisito__idRes__33D4B598" Association="Self.FK__requisito__idRes__33D4B598">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="requisitos" EntitySet="requisitos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Requisito__idUsu__403A8C7D" Association="Self.FK__Requisito__idUsu__403A8C7D">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="RequisitosEstado" EntitySet="RequisitosEstado" />
+          </AssociationSet>
+          <AssociationSet Name="FK__sprint__idProyec__2B3F6F97" Association="Self.FK__sprint__idProyec__2B3F6F97">
+            <End Role="proyecto" EntitySet="proyecto" />
+            <End Role="sprint" EntitySet="sprint" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SprintReq__idReq__3D5E1FD2" Association="Self.FK__SprintReq__idReq__3D5E1FD2">
+            <End Role="requisitos" EntitySet="requisitos" />
+            <End Role="SprintRequisitos" EntitySet="SprintRequisitos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SprintReq__idSpr__3C69FB99" Association="Self.FK__SprintReq__idSpr__3C69FB99">
+            <End Role="sprint" EntitySet="sprint" />
+            <End Role="SprintRequisitos" EntitySet="SprintRequisitos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__trabajo__idRequi__38996AB5" Association="Self.FK__trabajo__idRequi__38996AB5">
+            <End Role="requisitos" EntitySet="requisitos" />
+            <End Role="trabajo" EntitySet="trabajo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__trabajo__idUsuar__398D8EEE" Association="Self.FK__trabajo__idUsuar__398D8EEE">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="trabajo" EntitySet="trabajo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__usuario__idRol__25869641" Association="Self.FK__usuario__idRol__25869641">
+            <End Role="rol" EntitySet="rol" />
+            <End Role="usuario" EntitySet="usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="proyectoTrelloModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="proyecto">
+          <Key>
+            <PropertyRef Name="idProyecto" />
+          </Key>
+          <Property Name="idProyecto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sigla" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Imagen" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="Int16" />
+          <Property Name="idResponsable" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="usuario" Relationship="Self.FK__proyecto__idResp__286302EC" FromRole="proyecto" ToRole="usuario" />
+          <NavigationProperty Name="ProyectoUsuarios" Relationship="Self.FK__ProyectoU__idPro__300424B4" FromRole="proyecto" ToRole="ProyectoUsuario" />
+          <NavigationProperty Name="requisitos" Relationship="Self.FK__requisito__idPro__34C8D9D1" FromRole="proyecto" ToRole="requisitos" />
+          <NavigationProperty Name="sprints" Relationship="Self.FK__sprint__idProyec__2B3F6F97" FromRole="proyecto" ToRole="sprint" />
+        </EntityType>
+        <EntityType Name="ProyectoUsuario">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+            <PropertyRef Name="idRol" />
+            <PropertyRef Name="idProyecto" />
+          </Key>
+          <Property Name="idUsuario" Type="Int32" Nullable="false" />
+          <Property Name="idRol" Type="Int32" Nullable="false" />
+          <Property Name="idProyecto" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="proyecto" Relationship="Self.FK__ProyectoU__idPro__300424B4" FromRole="ProyectoUsuario" ToRole="proyecto" />
+          <NavigationProperty Name="rol" Relationship="Self.FK__ProyectoU__idRol__2F10007B" FromRole="ProyectoUsuario" ToRole="rol" />
+          <NavigationProperty Name="usuario" Relationship="Self.FK__ProyectoU__idUsu__2E1BDC42" FromRole="ProyectoUsuario" ToRole="usuario" />
+        </EntityType>
+        <EntityType Name="requisito">
+          <Key>
+            <PropertyRef Name="idRequisitos" />
+          </Key>
+          <Property Name="idRequisitos" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Tipo" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Prioridad" Type="Int16" Nullable="false" />
+          <Property Name="Puntos" Type="Int16" Nullable="false" />
+          <Property Name="Estado" Type="Int16" Nullable="false" />
+          <Property Name="idInformador" Type="Int32" Nullable="false" />
+          <Property Name="idResponsable" Type="Int32" />
+          <Property Name="idProyecto" Type="Int32" Nullable="false" />
+          <Property Name="idRequisitosPadre" Type="Int32" />
+          <Property Name="TiempoEstimado" Type="DateTime" Precision="3" />
+          <Property Name="fechacreado" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="proyecto" Relationship="Self.FK__requisito__idPro__34C8D9D1" FromRole="requisitos" ToRole="proyecto" />
+          <NavigationProperty Name="usuario" Relationship="Self.FK__requisito__idInf__32E0915F" FromRole="requisitos" ToRole="usuario" />
+          <NavigationProperty Name="requisitos1" Relationship="Self.FK__requisito__idReq__35BCFE0A" FromRole="requisitos" ToRole="requisitos1" />
+          <NavigationProperty Name="requisito1" Relationship="Self.FK__requisito__idReq__35BCFE0A" FromRole="requisitos1" ToRole="requisitos" />
+          <NavigationProperty Name="usuario1" Relationship="Self.FK__requisito__idRes__33D4B598" FromRole="requisitos" ToRole="usuario" />
+          <NavigationProperty Name="trabajoes" Relationship="Self.FK__trabajo__idRequi__38996AB5" FromRole="requisitos" ToRole="trabajo" />
+          <NavigationProperty Name="sprints" Relationship="Self.SprintRequisitos" FromRole="requisitos" ToRole="sprint" />
+        </EntityType>
+        <EntityType Name="RequisitosEstado">
+          <Key>
+            <PropertyRef Name="idRequisitos" />
+          </Key>
+          <Property Name="idRequisitos" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Estado" Type="Int16" />
+          <Property Name="FechaCambio" Type="DateTime" Precision="3" />
+          <Property Name="idUsuario" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="usuario" Relationship="Self.FK__Requisito__idUsu__403A8C7D" FromRole="RequisitosEstado" ToRole="usuario" />
+        </EntityType>
+        <EntityType Name="rol">
+          <Key>
+            <PropertyRef Name="idRol" />
+          </Key>
+          <Property Name="idRol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ProyectoUsuarios" Relationship="Self.FK__ProyectoU__idRol__2F10007B" FromRole="rol" ToRole="ProyectoUsuario" />
+          <NavigationProperty Name="usuarios" Relationship="Self.FK__usuario__idRol__25869641" FromRole="rol" ToRole="usuario" />
+        </EntityType>
+        <EntityType Name="sprint">
+          <Key>
+            <PropertyRef Name="idSprint" />
+          </Key>
+          <Property Name="idSprint" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FechaIncio" Type="DateTime" Precision="3" />
+          <Property Name="FechaFin" Type="DateTime" Precision="3" />
+          <Property Name="Estados" Type="Int16" />
+          <Property Name="idProyecto" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="proyecto" Relationship="Self.FK__sprint__idProyec__2B3F6F97" FromRole="sprint" ToRole="proyecto" />
+          <NavigationProperty Name="requisitos" Relationship="Self.SprintRequisitos" FromRole="sprint" ToRole="requisitos" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="trabajo">
+          <Key>
+            <PropertyRef Name="idTrabajo" />
+          </Key>
+          <Property Name="idTrabajo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Tiempotrabajada" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Comentario" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Fechaguardado" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="idRequisitos" Type="Int32" Nullable="false" />
+          <Property Name="idUsuario" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="requisito" Relationship="Self.FK__trabajo__idRequi__38996AB5" FromRole="trabajo" ToRole="requisitos" />
+          <NavigationProperty Name="usuario" Relationship="Self.FK__trabajo__idUsuar__398D8EEE" FromRole="trabajo" ToRole="usuario" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreCompleto" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Correo" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Clave" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Direccion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="Int16" />
+          <Property Name="idRol" Type="Int32" />
+          <NavigationProperty Name="proyectoes" Relationship="Self.FK__proyecto__idResp__286302EC" FromRole="usuario" ToRole="proyecto" />
+          <NavigationProperty Name="ProyectoUsuarios" Relationship="Self.FK__ProyectoU__idUsu__2E1BDC42" FromRole="usuario" ToRole="ProyectoUsuario" />
+          <NavigationProperty Name="requisitos" Relationship="Self.FK__requisito__idInf__32E0915F" FromRole="usuario" ToRole="requisitos" />
+          <NavigationProperty Name="requisitos1" Relationship="Self.FK__requisito__idRes__33D4B598" FromRole="usuario" ToRole="requisitos" />
+          <NavigationProperty Name="RequisitosEstadoes" Relationship="Self.FK__Requisito__idUsu__403A8C7D" FromRole="usuario" ToRole="RequisitosEstado" />
+          <NavigationProperty Name="rol" Relationship="Self.FK__usuario__idRol__25869641" FromRole="usuario" ToRole="rol" />
+          <NavigationProperty Name="trabajoes" Relationship="Self.FK__trabajo__idUsuar__398D8EEE" FromRole="usuario" ToRole="trabajo" />
+        </EntityType>
+        <Association Name="FK__proyecto__idResp__286302EC">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="proyecto" Type="Self.proyecto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="proyecto">
+              <PropertyRef Name="idResponsable" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProyectoU__idPro__300424B4">
+          <End Role="proyecto" Type="Self.proyecto" Multiplicity="1" />
+          <End Role="ProyectoUsuario" Type="Self.ProyectoUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="proyecto">
+              <PropertyRef Name="idProyecto" />
+            </Principal>
+            <Dependent Role="ProyectoUsuario">
+              <PropertyRef Name="idProyecto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__requisito__idPro__34C8D9D1">
+          <End Role="proyecto" Type="Self.proyecto" Multiplicity="1" />
+          <End Role="requisitos" Type="Self.requisito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="proyecto">
+              <PropertyRef Name="idProyecto" />
+            </Principal>
+            <Dependent Role="requisitos">
+              <PropertyRef Name="idProyecto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__sprint__idProyec__2B3F6F97">
+          <End Role="proyecto" Type="Self.proyecto" Multiplicity="1" />
+          <End Role="sprint" Type="Self.sprint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="proyecto">
+              <PropertyRef Name="idProyecto" />
+            </Principal>
+            <Dependent Role="sprint">
+              <PropertyRef Name="idProyecto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProyectoU__idRol__2F10007B">
+          <End Role="rol" Type="Self.rol" Multiplicity="1" />
+          <End Role="ProyectoUsuario" Type="Self.ProyectoUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rol">
+              <PropertyRef Name="idRol" />
+            </Principal>
+            <Dependent Role="ProyectoUsuario">
+              <PropertyRef Name="idRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProyectoU__idUsu__2E1BDC42">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="ProyectoUsuario" Type="Self.ProyectoUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="ProyectoUsuario">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__requisito__idInf__32E0915F">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="requisitos" Type="Self.requisito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="requisitos">
+              <PropertyRef Name="idInformador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__requisito__idReq__35BCFE0A">
+          <End Role="requisitos" Type="Self.requisito" Multiplicity="0..1" />
+          <End Role="requisitos1" Type="Self.requisito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="requisitos">
+              <PropertyRef Name="idRequisitos" />
+            </Principal>
+            <Dependent Role="requisitos1">
+              <PropertyRef Name="idRequisitosPadre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__requisito__idRes__33D4B598">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="0..1" />
+          <End Role="requisitos" Type="Self.requisito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="requisitos">
+              <PropertyRef Name="idResponsable" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__trabajo__idRequi__38996AB5">
+          <End Role="requisitos" Type="Self.requisito" Multiplicity="1" />
+          <End Role="trabajo" Type="Self.trabajo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="requisitos">
+              <PropertyRef Name="idRequisitos" />
+            </Principal>
+            <Dependent Role="trabajo">
+              <PropertyRef Name="idRequisitos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Requisito__idUsu__403A8C7D">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="RequisitosEstado" Type="Self.RequisitosEstado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="RequisitosEstado">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__usuario__idRol__25869641">
+          <End Role="rol" Type="Self.rol" Multiplicity="0..1" />
+          <End Role="usuario" Type="Self.usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rol">
+              <PropertyRef Name="idRol" />
+            </Principal>
+            <Dependent Role="usuario">
+              <PropertyRef Name="idRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__trabajo__idUsuar__398D8EEE">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="trabajo" Type="Self.trabajo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="trabajo">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SprintRequisitos">
+          <End Role="requisitos" Type="Self.requisito" Multiplicity="*" />
+          <End Role="sprint" Type="Self.sprint" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="proyectoTrelloEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="proyectoes" EntityType="Self.proyecto" />
+          <EntitySet Name="ProyectoUsuarios" EntityType="Self.ProyectoUsuario" />
+          <EntitySet Name="requisitos" EntityType="Self.requisito" />
+          <EntitySet Name="RequisitosEstadoes" EntityType="Self.RequisitosEstado" />
+          <EntitySet Name="rols" EntityType="Self.rol" />
+          <EntitySet Name="sprints" EntityType="Self.sprint" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="trabajoes" EntityType="Self.trabajo" />
+          <EntitySet Name="usuarios" EntityType="Self.usuario" />
+          <AssociationSet Name="FK__proyecto__idResp__286302EC" Association="Self.FK__proyecto__idResp__286302EC">
+            <End Role="usuario" EntitySet="usuarios" />
+            <End Role="proyecto" EntitySet="proyectoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProyectoU__idPro__300424B4" Association="Self.FK__ProyectoU__idPro__300424B4">
+            <End Role="proyecto" EntitySet="proyectoes" />
+            <End Role="ProyectoUsuario" EntitySet="ProyectoUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__requisito__idPro__34C8D9D1" Association="Self.FK__requisito__idPro__34C8D9D1">
+            <End Role="proyecto" EntitySet="proyectoes" />
+            <End Role="requisitos" EntitySet="requisitos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__sprint__idProyec__2B3F6F97" Association="Self.FK__sprint__idProyec__2B3F6F97">
+            <End Role="proyecto" EntitySet="proyectoes" />
+            <End Role="sprint" EntitySet="sprints" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProyectoU__idRol__2F10007B" Association="Self.FK__ProyectoU__idRol__2F10007B">
+            <End Role="rol" EntitySet="rols" />
+            <End Role="ProyectoUsuario" EntitySet="ProyectoUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProyectoU__idUsu__2E1BDC42" Association="Self.FK__ProyectoU__idUsu__2E1BDC42">
+            <End Role="usuario" EntitySet="usuarios" />
+            <End Role="ProyectoUsuario" EntitySet="ProyectoUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__requisito__idInf__32E0915F" Association="Self.FK__requisito__idInf__32E0915F">
+            <End Role="usuario" EntitySet="usuarios" />
+            <End Role="requisitos" EntitySet="requisitos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__requisito__idReq__35BCFE0A" Association="Self.FK__requisito__idReq__35BCFE0A">
+            <End Role="requisitos" EntitySet="requisitos" />
+            <End Role="requisitos1" EntitySet="requisitos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__requisito__idRes__33D4B598" Association="Self.FK__requisito__idRes__33D4B598">
+            <End Role="usuario" EntitySet="usuarios" />
+            <End Role="requisitos" EntitySet="requisitos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__trabajo__idRequi__38996AB5" Association="Self.FK__trabajo__idRequi__38996AB5">
+            <End Role="requisitos" EntitySet="requisitos" />
+            <End Role="trabajo" EntitySet="trabajoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Requisito__idUsu__403A8C7D" Association="Self.FK__Requisito__idUsu__403A8C7D">
+            <End Role="usuario" EntitySet="usuarios" />
+            <End Role="RequisitosEstado" EntitySet="RequisitosEstadoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__usuario__idRol__25869641" Association="Self.FK__usuario__idRol__25869641">
+            <End Role="rol" EntitySet="rols" />
+            <End Role="usuario" EntitySet="usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__trabajo__idUsuar__398D8EEE" Association="Self.FK__trabajo__idUsuar__398D8EEE">
+            <End Role="usuario" EntitySet="usuarios" />
+            <End Role="trabajo" EntitySet="trabajoes" />
+          </AssociationSet>
+          <AssociationSet Name="SprintRequisitos" Association="Self.SprintRequisitos">
+            <End Role="requisitos" EntitySet="requisitos" />
+            <End Role="sprint" EntitySet="sprints" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="proyectoTrelloModelStoreContainer" CdmEntityContainer="proyectoTrelloEntities">
+          <EntitySetMapping Name="proyectoes">
+            <EntityTypeMapping TypeName="proyectoTrelloModel.proyecto">
+              <MappingFragment StoreEntitySet="proyecto">
+                <ScalarProperty Name="idProyecto" ColumnName="idProyecto" />
+                <ScalarProperty Name="Sigla" ColumnName="Sigla" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="idResponsable" ColumnName="idResponsable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProyectoUsuarios">
+            <EntityTypeMapping TypeName="proyectoTrelloModel.ProyectoUsuario">
+              <MappingFragment StoreEntitySet="ProyectoUsuario">
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="idRol" ColumnName="idRol" />
+                <ScalarProperty Name="idProyecto" ColumnName="idProyecto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="requisitos">
+            <EntityTypeMapping TypeName="proyectoTrelloModel.requisito">
+              <MappingFragment StoreEntitySet="requisitos">
+                <ScalarProperty Name="idRequisitos" ColumnName="idRequisitos" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Prioridad" ColumnName="Prioridad" />
+                <ScalarProperty Name="Puntos" ColumnName="Puntos" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="idInformador" ColumnName="idInformador" />
+                <ScalarProperty Name="idResponsable" ColumnName="idResponsable" />
+                <ScalarProperty Name="idProyecto" ColumnName="idProyecto" />
+                <ScalarProperty Name="idRequisitosPadre" ColumnName="idRequisitosPadre" />
+                <ScalarProperty Name="TiempoEstimado" ColumnName="TiempoEstimado" />
+                <ScalarProperty Name="fechacreado" ColumnName="fechacreado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RequisitosEstadoes">
+            <EntityTypeMapping TypeName="proyectoTrelloModel.RequisitosEstado">
+              <MappingFragment StoreEntitySet="RequisitosEstado">
+                <ScalarProperty Name="idRequisitos" ColumnName="idRequisitos" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaCambio" ColumnName="FechaCambio" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rols">
+            <EntityTypeMapping TypeName="proyectoTrelloModel.rol">
+              <MappingFragment StoreEntitySet="rol">
+                <ScalarProperty Name="idRol" ColumnName="idRol" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sprints">
+            <EntityTypeMapping TypeName="proyectoTrelloModel.sprint">
+              <MappingFragment StoreEntitySet="sprint">
+                <ScalarProperty Name="idSprint" ColumnName="idSprint" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="FechaIncio" ColumnName="FechaIncio" />
+                <ScalarProperty Name="FechaFin" ColumnName="FechaFin" />
+                <ScalarProperty Name="Estados" ColumnName="Estados" />
+                <ScalarProperty Name="idProyecto" ColumnName="idProyecto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="proyectoTrelloModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="trabajoes">
+            <EntityTypeMapping TypeName="proyectoTrelloModel.trabajo">
+              <MappingFragment StoreEntitySet="trabajo">
+                <ScalarProperty Name="idTrabajo" ColumnName="idTrabajo" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+                <ScalarProperty Name="Tiempotrabajada" ColumnName="Tiempotrabajada" />
+                <ScalarProperty Name="Comentario" ColumnName="Comentario" />
+                <ScalarProperty Name="Fechaguardado" ColumnName="Fechaguardado" />
+                <ScalarProperty Name="idRequisitos" ColumnName="idRequisitos" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuarios">
+            <EntityTypeMapping TypeName="proyectoTrelloModel.usuario">
+              <MappingFragment StoreEntitySet="usuario">
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="NombreCompleto" ColumnName="NombreCompleto" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Clave" ColumnName="Clave" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="idRol" ColumnName="idRol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="SprintRequisitos" TypeName="proyectoTrelloModel.SprintRequisitos" StoreEntitySet="SprintRequisitos">
+            <EndProperty Name="requisitos">
+              <ScalarProperty Name="idRequisitos" ColumnName="idRequisitos" />
+            </EndProperty>
+            <EndProperty Name="sprint">
+              <ScalarProperty Name="idSprint" ColumnName="idSprint" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

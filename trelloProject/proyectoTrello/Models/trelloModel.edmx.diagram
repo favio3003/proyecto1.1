@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7f021302095540289b514d979eacf66d" Name="Diagram1">
+        <EntityTypeShape EntityType="proyectoTrelloModel.proyecto" Width="1.5" PointX="5.25" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="proyectoTrelloModel.ProyectoUsuario" Width="1.5" PointX="7.5" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="proyectoTrelloModel.requisito" Width="1.5" PointX="10.5" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="proyectoTrelloModel.RequisitosEstado" Width="1.5" PointX="5.25" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="proyectoTrelloModel.rol" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="proyectoTrelloModel.sprint" Width="1.5" PointX="12.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="proyectoTrelloModel.sysdiagram" Width="1.5" PointX="4" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="proyectoTrelloModel.trabajo" Width="1.5" PointX="15.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="proyectoTrelloModel.usuario" Width="1.5" PointX="3" PointY="8.25" IsExpanded="true" />
+        <AssociationConnector Association="proyectoTrelloModel.FK__proyecto__idResp__286302EC" ManuallyRouted="false" />
+        <AssociationConnector Association="proyectoTrelloModel.FK__ProyectoU__idPro__300424B4" ManuallyRouted="false" />
+        <AssociationConnector Association="proyectoTrelloModel.FK__requisito__idPro__34C8D9D1" ManuallyRouted="false" />
+        <AssociationConnector Association="proyectoTrelloModel.FK__sprint__idProyec__2B3F6F97" ManuallyRouted="false" />
+        <AssociationConnector Association="proyectoTrelloModel.FK__ProyectoU__idRol__2F10007B" ManuallyRouted="false" />
+        <AssociationConnector Association="proyectoTrelloModel.FK__ProyectoU__idUsu__2E1BDC42" ManuallyRouted="false" />
+        <AssociationConnector Association="proyectoTrelloModel.FK__requisito__idInf__32E0915F" ManuallyRouted="false" />
+        <AssociationConnector Association="proyectoTrelloModel.FK__requisito__idReq__35BCFE0A" ManuallyRouted="false" />
+        <AssociationConnector Association="proyectoTrelloModel.FK__requisito__idRes__33D4B598" ManuallyRouted="false" />
+        <AssociationConnector Association="proyectoTrelloModel.FK__trabajo__idRequi__38996AB5" ManuallyRouted="false" />
+        <AssociationConnector Association="proyectoTrelloModel.FK__Requisito__idUsu__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="proyectoTrelloModel.FK__usuario__idRol__25869641" ManuallyRouted="false" />
+        <AssociationConnector Association="proyectoTrelloModel.FK__trabajo__idUsuar__398D8EEE" ManuallyRouted="false" />
+        <AssociationConnector Association="proyectoTrelloModel.SprintRequisitos" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
